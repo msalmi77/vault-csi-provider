@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  containers:
+  - env:
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: dbpass
+    image: jweissig/app:0.0.1
+    imagePullPolicy: IfNotPresent
+    name: webapp
+    volumeMounts:
+    - mountPath: /mnt/secrets-store
+      name: secrets-store-inline
+      readOnly: true
+  serviceAccount: webapp-sa
+  volumes:
+  - csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: vault-database
+    name: secrets-store-inline
