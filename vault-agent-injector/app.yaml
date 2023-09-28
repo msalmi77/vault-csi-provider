@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-example-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-example
+  template:
+    metadata:
+      labels:
+        app: app-example
+      annotations:
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/role: 'internal-app'
+        vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
+    spec:
+      containers:
+        - name: app
+          image: jweissig/app:0.0.1
+      serviceAccountName: internal-app
