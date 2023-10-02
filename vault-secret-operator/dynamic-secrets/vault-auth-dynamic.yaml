@@ -7,7 +7,7 @@ spec:
   method: kubernetes
   mount: demo-auth-mount
   kubernetes:
-    role: auth-role
+    role: auth-role-new
     serviceAccount: default
     audiences:
       - vault
