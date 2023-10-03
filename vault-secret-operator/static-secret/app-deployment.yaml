@@ -6,7 +6,7 @@ metadata:
   labels:
     test: demo
 spec:
-  replicas: 3
+  replicas: 2
   strategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -25,6 +25,7 @@ spec:
       containers:
         - name: example
           image: nginx:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: DB_PASSWORD
               valueFrom:
