@@ -25,6 +25,7 @@ spec:
       containers:
         - name: example
           image: nginx:latest
+          imagePullPolicy: IfNotPresent 
           env:
             - name: DB_PASSWORD
               valueFrom:
